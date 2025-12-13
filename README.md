@@ -2,10 +2,13 @@
 
 Interactive, single‑page calculator for stress concentration factors (Kt) of a grooved shaft under axial, bending, and torsion loading. Enter the shaft geometry and the page evaluates Kt using tabulated coefficient polynomials with automatic range checks.
 
-## Try it in the browser
+## Launch
 
-- GitHub Pages (after enabling in repo settings): `https://gwb2025.github.io/Stress-Concentration-Factors/`
-  - In GitHub: Settings → Pages → Deploy from branch → `master` (or `main` if you rename) → `/ (root)`. Save, then open the link above once it builds.
+[<kbd>Launch Browser App</kbd>](https://gwb2025.github.io/Stress-Concentration-Factors/)
+
+GitHub Pages setup (one-time):
+- Settings → Pages → Deploy from branch → `main` → `/ (root)` → Save.
+- Once it builds (1–3 minutes), the button above opens the live app.
 
 ## How it works
 
