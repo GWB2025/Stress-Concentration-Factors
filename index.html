@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grooved Shaft Kt Calculator</title>
+  <style>
+    :root {
+      --bg: radial-gradient(120% 120% at 20% 20%, #f3f5ff 0%, #e6eefc 45%, #dfe7f5 70%, #eaf0ff 100%);
+      --card: #0f172a;
+      --panel: #111827;
+      --accent: #fbbf24;
+      --accent-2: #22d3ee;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Gill Sans", "Avenir", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .shell {
+      width: min(1100px, 100%);
+      background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(17,24,39,0.96));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 40px 120px rgba(15, 23, 42, 0.35);
+      overflow: hidden;
+    }
+    .header {
+      padding: 24px 28px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .tag {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.16);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      color: #7dd3fc;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 20px 24px 28px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .fields {
+      display: grid;
+      gap: 12px;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1221;
+      color: #e5e7eb;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+    input[type="number"]:focus {
+      border-color: rgba(34, 211, 238, 0.5);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12);
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.14s ease;
+    }
+    .primary {
+      background: linear-gradient(120deg, #22d3ee, #0ea5e9);
+      color: #032236;
+      box-shadow: 0 14px 30px rgba(14, 165, 233, 0.35);
+    }
+    .ghost {
+      background: rgba(248, 250, 252, 0.06);
+      color: #e5e7eb;
+      border: 1px solid var(--border);
+    }
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); box-shadow: none; }
+    .result {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .pill {
+      padding: 12px;
+      border-radius: 12px;
+      background: #0b1221;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pill .label {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .pill .value {
+      font-size: 20px;
+      color: #fef3c7;
+      font-weight: 700;
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .error {
+      color: #fca5a5;
+      font-size: 13px;
+      margin-top: 6px;
+      min-height: 18px;
+    }
+    @media (max-width: 600px) {
+      body { padding: 14px; }
+      .header { flex-direction: column; gap: 10px; }
+      h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="header">
+      <h1>U-Groove Stress Concentration</h1>
+      <div class="tag">Axial | Bending | Torsion</div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <h2>Geometry</h2>
+        <div class="fields">
+          <label>Outside diameter D
+            <input id="diameter" type="number" min="0" step="any" placeholder="e.g., 50">
+          </label>
+          <label>Groove depth h
+            <input id="depth" type="number" min="0" step="any" placeholder="e.g., 2.5">
+          </label>
+          <label>Fillet radius r
+            <input id="radius" type="number" min="0" step="any" placeholder="e.g., 2.5">
+          </label>
+        </div>
+        <div class="btn-row">
+          <button class="primary" onclick="calculate()">Calculate K<sub>t</sub></button>
+          <button class="ghost" onclick="resetFields()">Reset</button>
+        </div>
+        <div class="error" id="error"></div>
+        <div class="note">Domains: axial h/r from 0.1 to 50; bending & torsion h/r from 0.25 to 50. Coefficients switch at h/r = 2.0. Reduced diameter d = D - 2h must stay positive.</div>
+      </div>
+      <div class="card">
+        <h2>Results</h2>
+        <div class="result">
+          <div class="pill">
+            <div class="label">Axial</div>
+            <div class="value" id="axialKt">--</div>
+          </div>
+          <div class="pill">
+            <div class="label">Bending</div>
+            <div class="value" id="bendingKt">--</div>
+          </div>
+          <div class="pill">
+            <div class="label">Torsion</div>
+            <div class="value" id="torsionKt">--</div>
+          </div>
+        </div>
+        <div class="note">Semicircular groove shortcut (h/r = 1): axial 3.004 - 5.963x + 6.836x^2 - 2.893x^3; bending 3.032 - 7.431x + 10.390x^2 - 5.009x^3; torsion uses the general table.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const axialCoeffs = hOverR => {
+      if (hOverR < 0.1 || hOverR > 50) return null;
+      const s = Math.sqrt(hOverR);
+      if (hOverR < 2) {
+        return [
+          0.89 + 2.208 * s - 0.094 * hOverR,
+          -0.923 - 6.678 * s + 1.638 * hOverR,
+          2.893 + 6.448 * s - 2.516 * hOverR,
+          -1.912 - 1.944 * s + 0.963 * hOverR,
+        ];
+      }
+      return [
+        1.037 + 1.967 * s + 0.002 * hOverR,
+        -2.679 - 2.980 * s - 0.053 * hOverR,
+        3.090 + 2.124 * s + 0.165 * hOverR,
+        -0.424 - 1.153 * s - 0.106 * hOverR,
+      ];
+    };
+
+    const bendingCoeffs = hOverR => {
+      if (hOverR < 0.25 || hOverR > 50) return null;
+      const s = Math.sqrt(hOverR);
+      if (hOverR < 2) {
+        return [
+          0.594 + 2.958 * s - 0.520 * hOverR,
+          0.422 - 10.545 * s + 2.692 * hOverR,
+          0.501 + 14.375 * s - 4.486 * hOverR,
+          -0.613 - 6.573 * s + 2.177 * hOverR,
+        ];
+      }
+      return [
+        0.965 + 1.926 * s,
+        -2.773 - 4.414 * s - 0.017 * hOverR,
+        4.785 + 4.681 * s + 0.096 * hOverR,
+        -1.995 - 2.241 * s - 0.074 * hOverR,
+      ];
+    };
+
+    const torsionCoeffs = hOverR => {
+      if (hOverR < 0.25 || hOverR > 50) return null;
+      const s = Math.sqrt(hOverR);
+      if (hOverR < 2) {
+        return [
+          0.966 + 1.056 * s - 0.022 * hOverR,
+          -0.192 - 4.037 * s + 0.674 * hOverR,
+          0.808 + 5.321 * s - 1.231 * hOverR,
+          -0.567 - 2.364 * s + 0.566 * hOverR,
+        ];
+      }
+      return [
+        1.089 + 0.924 * s + 0.018 * hOverR,
+        -1.504 - 2.141 * s - 0.047 * hOverR,
+        2.486 + 2.289 * s + 0.091 * hOverR,
+        -1.056 - 1.104 * s - 0.059 * hOverR,
+      ];
+    };
+
+    const evaluateKt = (coeffs, x) => coeffs[0] + coeffs[1] * x + coeffs[2] * x * x + coeffs[3] * x * x * x;
+
+    const format = v => (Number.isFinite(v) ? v.toFixed(3) : "--");
+
+    const showError = msg => {
+      document.getElementById("error").textContent = msg || "";
+    };
+
+    const calculate = () => {
+      const D = parseFloat(document.getElementById("diameter").value);
+      const h = parseFloat(document.getElementById("depth").value);
+      const r = parseFloat(document.getElementById("radius").value);
+
+      if (![D, h, r].every(Number.isFinite) || D <= 0 || h <= 0 || r <= 0) {
+        showError("Enter positive numbers for D, h, and r.");
+        updateResults(null, null, null);
+        return;
+      }
+      if (2 * h >= D) {
+        showError("Reduced diameter d = D - 2h must be positive.");
+        updateResults(null, null, null);
+        return;
+      }
+
+      const hOverR = h / r;
+      const x = (2 * h) / D;
+
+      const axial = axialCoeffs(hOverR);
+      const bending = bendingCoeffs(hOverR);
+      const torsion = torsionCoeffs(hOverR);
+
+      if (!axial || !bending || !torsion) {
+        showError("h/r out of supported range: axial 0.1-50; bending & torsion 0.25-50.");
+        updateResults(null, null, null);
+        return;
+      }
+
+      showError("");
+      updateResults(
+        evaluateKt(axial, x),
+        evaluateKt(bending, x),
+        evaluateKt(torsion, x)
+      );
+    };
+
+    const updateResults = (axial, bending, torsion) => {
+      document.getElementById("axialKt").textContent = format(axial);
+      document.getElementById("bendingKt").textContent = format(bending);
+      document.getElementById("torsionKt").textContent = format(torsion);
+    };
+
+    const resetFields = () => {
+      document.getElementById("diameter").value = "";
+      document.getElementById("depth").value = "";
+      document.getElementById("radius").value = "";
+      showError("");
+      updateResults(null, null, null);
+    };
+  </script>
+</body>
+</html>
