@@ -29,8 +29,13 @@ The app is static (`index.html`, images) and requires no build step.
 - `index.html` — UI, styling, and Kt calculations.
 - `server.py` — tiny HTTP server for local preview.
 - `bending.png`, `tension.png`, `Torsion.png` — reference visuals.
+- `circular_bar_with_groove.png` — schematic of the grooved shaft geometry.
 - `.gitignore` — standard Python/editor/OS ignores.
 
 ## Reference
 
 Kt coefficient polynomials are sourced from: Walter D. Pilkey, *Formulas for Stress, Strain, and Structural Matrices*, 2nd ed., Wiley, 2004 (ISBN 0-471-03221-2).
+
+## Diagram
+
+![U-groove shaft schematic](circular_bar_with_groove.png)
