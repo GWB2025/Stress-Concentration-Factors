@@ -34,3 +34,7 @@ The app is static (`index.html`, images) and requires no build step.
 - `server.py` — tiny HTTP server for local preview.
 - `bending.png`, `tension.png`, `Torsion.png` — reference visuals.
 - `.gitignore` — standard Python/editor/OS ignores.
+
+## Reference
+
+Kt coefficient polynomials are sourced from: Walter D. Pilkey, *Formulas for Stress, Strain, and Structural Matrices*, 2nd ed., Wiley, 2004 (ISBN 0-471-03221-2).
