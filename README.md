@@ -6,10 +6,6 @@ Interactive, single‑page calculator for stress concentration factors (Kt) of a
 
 [![Launch Browser App](https://img.shields.io/badge/Launch-Browser%20App-0074D9?style=flat&labelColor=555)](https://gwb2025.github.io/Stress-Concentration-Factors/)
 
-GitHub Pages setup (one-time):
-- Settings → Pages → Deploy from branch → `main` → `/ (root)` → Save.
-- Once it builds (1–3 minutes), the button above opens the live app.
-
 ## How it works
 
 - Inputs: outside diameter `D`, groove depth `h`, fillet radius `r`.
